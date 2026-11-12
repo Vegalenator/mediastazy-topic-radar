@@ -1,0 +1,94 @@
+name: Сбор сигналов и публикация радара
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mediastazy-source.tar.gz'
+      - 'site/**'
+      - 'scripts/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '23 2,8,14,20 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: radar-pages
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - name: Распаковать исходники при первом запуске
+        run: |
+          if [ -f mediastazy-source.tar.gz ]; then
+            tar -xzf mediastazy-source.tar.gz
+          fi
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/cache/restore@v4
+        with:
+          path: .radar-cache
+          key: radar-sources-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: radar-sources-v1-
+      - name: Собрать и проверить выдачу
+        run: |
+          python scripts/collect.py
+          python scripts/validate.py
+      - uses: actions/cache/save@v4
+        with:
+          path: .radar-cache
+          key: radar-sources-v1-${{ github.run_id }}-${{ github.run_attempt }}
+        continue-on-error: true
+      - name: Разместить исходники в репозитории
+        if: ${{ hashFiles('mediastazy-source.tar.gz') != '' }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .gitignore README.md scripts site/index.html site/style.css site/app.js site/data/topics.json
+          git rm mediastazy-source.tar.gz
+          git commit -m 'Разместить исходники редакционного радара'
+          git push origin HEAD:main
+      - name: Зафиксировать успешный запуск за неделю
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        run: |
+          week="$(date -u +%G-W%V)"
+          previous="$(cat .last-scheduled-week 2>/dev/null || true)"
+          if [ "$week" = "$previous" ]; then exit 0; fi
+          printf '%s\n' "$week" > .last-scheduled-week
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .last-scheduled-week
+          git commit -m "Сбор радара: $week"
+          git push origin HEAD:main
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  publish:
+    needs: collect
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Опубликовать на GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
