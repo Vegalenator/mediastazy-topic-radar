@@ -137,7 +137,7 @@ def parse_feed(body, job, now):
             if not views.isdecimal() or not re.fullmatch(r"[\w-]{11}", video_id):
                 continue
             link = "https://www.youtube.com/watch?v=" + video_id
-            tags = beat_ids(title, plain(val(group, "description"), 220))
+            tags = beat_ids(title)
             details = {"views": int(views), "observedAt": stamp(now),
                        "short": "/shorts/" in (link_node.get("href") or "") if link_node is not None else False}
         if not tags and kind == "news":
@@ -234,9 +234,7 @@ def build_snapshot(states, now):
     for kind, limit in {"news": 110, "trends": 55, "research": 60, "videos": 36}.items():
         records = dedupe(item for source in states if source["kind"] == kind for item in source["items"])
         if kind == "videos":
-            relevant = [item for item in records if item["beats"]]
-            if relevant:
-                records = relevant
+            records = [item for item in records if item["beats"]]
             records.sort(key=lambda item: (item["views"], item["publishedAt"]), reverse=True)
         elif kind == "trends":
             records.sort(key=lambda item: (bool(item["beats"]), item["publishedAt"]), reverse=True)
