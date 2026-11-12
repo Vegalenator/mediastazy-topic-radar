@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Редакционная база тем и открытых сигналов канала Медиастазы">
+<title>Радар тем · Медиастазы</title>
+<link rel="stylesheet" href="./style.css">
+<script defer src="./app.js"></script>
+</head>
+<body>
+<div id="app">
+<header class="top">
+  <div class="brand"><div class="emblem" aria-hidden="true">М</div><div><div class="brandname">МЕДИАСТАЗЫ</div><div class="sub">Радар тем</div></div></div>
+  <nav class="nav" aria-label="Разделы">
+    <button data-tab="topics" aria-pressed="true" class="active">Большие выпуски</button>
+    <button data-tab="shorts" aria-pressed="false">Короткие ролики</button>
+    <button data-tab="signals" aria-pressed="false">Сигналы и источники</button>
+    <button data-tab="method" aria-pressed="false">Методика</button>
+  </nav>
+  <div class="headtools"><button class="subbtn" id="import">Импорт</button><button class="subbtn" id="export">Выгрузить</button><button class="primary" id="new">+ Тема</button></div>
+</header>
+<div class="shell">
+  <aside id="sidebar">
+    <div class="filters"><div class="titleline" id="sideTitle">База больших исследований</div>
+      <input id="q" class="search" type="search" aria-label="Поиск по темам" placeholder="Поиск по темам и вопросам">
+      <div class="filterrow"><select id="cat" aria-label="Направление"></select><select id="state" aria-label="Этап"></select></div>
+      <div class="countrow"><span id="count"></span><label><input type="checkbox" id="onlySaved"> Избранное</label></div>
+    </div>
+    <div id="list" class="list"></div>
+    <div id="update" class="filters mini-status" aria-live="polite">Загружаю данные…</div>
+  </aside>
+  <main class="main" id="main"><div class="wrap" id="detail"><p class="empty">Загружаю радар…</p></div></main>
+</div>
+</div>
+<input id="importFile" type="file" accept=".json,application/json" hidden>
+<div id="notice" role="status" hidden></div>
+<dialog id="editor">
+  <form id="editorForm">
+    <h2 id="editorTitle">Новая тема</h2>
+    <div id="editorFields"></div>
+    <div class="dlgactions"><button type="button" class="subbtn" id="cancel">Отмена</button><button type="submit" class="primary">Сохранить тему</button></div>
+  </form>
+</dialog>
+<noscript><p class="empty">Для работы радара включи JavaScript.</p></noscript>
+</body>
+</html>

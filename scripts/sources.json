@@ -1,0 +1,77 @@
+{
+  "news": [
+    ["rbc", "РБК", "https://rssexport.rbc.ru/rbcnews/news/30/full.rss"],
+    ["kommersant", "Коммерсантъ", "https://www.kommersant.ru/RSS/news.xml"],
+    ["verge", "The Verge", "https://www.theverge.com/rss/index.xml"],
+    ["ars", "Ars Technica", "https://feeds.arstechnica.com/arstechnica/index"],
+    ["ftc", "Федеральная торговая комиссия США", "https://www.ftc.gov/feeds/press-release.xml"],
+    ["guardian", "The Guardian · технологии", "https://www.theguardian.com/technology/rss"]
+  ],
+  "trends": [["RU", "Россия"], ["US", "США"]],
+  "research": [
+    ["audience", "ИИ и поведение аудитории", "generative artificial intelligence news media audience behavior"],
+    ["memory", "ИИ, память и доверие", "generative artificial intelligence human memory misinformation trust"],
+    ["platforms", "Платформы и внимание", "recommender systems social media attention user behaviour"],
+    ["infrastructure", "Вычислительная инфраструктура", "artificial intelligence data center electricity energy demand"]
+  ],
+  "videos": [
+    ["UCLXo7UDZvByw2ixzpQCufnA", "Vox"],
+    ["UC0intLFzLaudFG-xAvUEO-A", "RealLifeLore"],
+    ["UC9-y-6csu5WGm29I7JiwpnA", "Computerphile"],
+    ["UCsXVk37bltHxD1rDPwtNM8Q", "Kurzgesagt"],
+    ["UCcefcZRL2oaA_uBNeo5UOWg", "Y Combinator"],
+    ["UC16niRr50-MSBwiO3YDb3RA", "BBC News"],
+    ["UCfM3zsQsOnfWNUppiycmBuw", "Илья Варламов"]
+  ],
+  "beats": [
+    {
+      "id": "ai-money", "name": "Экономика ИИ", "category": "Экономика ИИ",
+      "pattern": "nvidia|openai|anthropic|ии[- ](?:компан|рын|пузыр)|искусственн\\w+ интеллект|нейросет|ai (?:investment|bubble|funding|spending|economics)|compute (?:cost|market)",
+      "long": "Кто оплачивает рост рынка ИИ и где оседает выручка?",
+      "short": "Как одна сделка в отрасли ИИ превращается в выручку двух компаний?",
+      "proof": "Найти договор или отчётность обеих сторон и разнести денежные платежи, обязательства и выручку по периодам."
+    },
+    {
+      "id": "energy", "name": "Энергия и вычисления", "category": "Технологии",
+      "pattern": "дата[- ]?центр|обработки данных|энергопотреблен|data cent(?:er|re)|power grid|hyperscaler|electricity demand|nuclear power",
+      "long": "Кто оплачивает энергоснабжение новых центров обработки данных?",
+      "short": "Как увидеть в одном документе, кто оплатит подключение вычислительного центра?",
+      "proof": "Найти решение регулятора, заявку на подключение или тариф. Сопоставить мощность, годовое потребление и распределение затрат."
+    },
+    {
+      "id": "memory", "name": "Доверие, память и ИИ", "category": "Общество и медиа",
+      "pattern": "ложн\\w+ воспоминан|галлюцинац|дипфейк|дезинформац|синтетическ\\w+ опрос|false memor|deepfake|misinformation|hallucinat|synthetic survey|ai.{0,20}(?:trust|memory)|memory manipulat",
+      "long": "В каких условиях машинный пересказ меняет то, чему верит человек?",
+      "short": "Что именно проверили исследователи, когда показали людям изменённый пересказ?",
+      "proof": "Найти методику, контрольную группу и размер эффекта. Проверить, измерялись ли воспоминания, уверенность или оценки правдоподобия."
+    },
+    {
+      "id": "attention", "name": "Ленты и внимание", "category": "Общество и медиа",
+      "pattern": "tiktok|тикток|бесконечн\\w+ прокрут|рекомендательн|алгоритм\\w* лент|social media|recommender|recommendation algorithm|infinite scroll|doomscroll|digital fairness|dark pattern|attention economy",
+      "long": "Как измерить влияние ленты рекомендаций на выбор зрителя?",
+      "short": "Как в одном сравнении отделить выбор зрителя от того, что ему показала лента?",
+      "proof": "Найти протокол измерения, сопоставимые группы или первичное решение регулятора. Проверить альтернативные объяснения."
+    },
+    {
+      "id": "power", "name": "Платформы и власть", "category": "Экономика и власть",
+      "pattern": "\\b(?:vk|вк)\\b|вконтакте|роскомнадзор|минцифры|цифров\\w+ платформ|антимонополь|digital markets act|digital services act|antitrust|platform regulation|online safety act",
+      "long": "Кто получает преимущество, когда государство меняет правила для цифровых площадок?",
+      "short": "Что для пользователя меняет одно конкретное правило цифровой площадки?",
+      "proof": "Найти исходный текст решения и сравнить условия для пользователей или конкурентов до и после его введения."
+    },
+    {
+      "id": "media", "name": "Будущее новостей", "category": "Общество и медиа",
+      "pattern": "новостн\\w+ (?:аудитори|привыч|агрегатор)|поисков\\w+ трафик|поисков\\w+ выдач|ai overview|news consumption|news avoidance|news publisher|search traffic|zero.click|ai search|digital news report",
+      "long": "Кто будет собирать картину дня, если аудитория делегирует поиск нейросетям?",
+      "short": "Что теряет новостное издание, когда ответ появляется прямо в поиске?",
+      "proof": "Сопоставить первичные данные о переходах и опросы о привычках. Развести причину, совпадение и поведение отдельных групп."
+    },
+    {
+      "id": "tech", "name": "Развитие ИИ", "category": "Технологии",
+      "pattern": "chatgpt|claude|gemini|openai|anthropic|deepseek|нейросет|чат[- ]?бот|генеративн\\w+ ии|искусственн\\w+ интеллект|artificial intelligence|generative ai|ai (?:agent|model|chatbot|benchmark|assistant)|\\bllms?\\b",
+      "long": "Что меняется в работе и повседневных привычках после внедрения новой технологии ИИ?",
+      "short": "Какой один тест покажет, что новая функция ИИ меняет в привычной задаче?",
+      "proof": "Найти описание функции и провести воспроизводимое сравнение на одной и той же задаче."
+    }
+  ]
+}
