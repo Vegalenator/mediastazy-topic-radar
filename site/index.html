@@ -16,6 +16,7 @@
   <nav class="nav" aria-label="Разделы">
     <button data-tab="topics" aria-pressed="true" class="active">Большие выпуски</button>
     <button data-tab="shorts" aria-pressed="false">Короткие ролики</button>
+    <button data-tab="generator" aria-pressed="false">Генерация тем</button>
     <button data-tab="signals" aria-pressed="false">Сигналы и источники</button>
     <button data-tab="method" aria-pressed="false">Методика</button>
   </nav>
@@ -42,6 +43,21 @@
     <div id="editorFields"></div>
     <div class="dlgactions"><button type="button" class="subbtn" id="cancel">Отмена</button><button type="submit" class="primary">Сохранить тему</button></div>
   </form>
+</dialog>
+<dialog id="aiConnection" aria-labelledby="aiConnectionTitle">
+  <h2 id="aiConnectionTitle">Подключение моделей</h2>
+  <p>Генерация работает через OpenRouter. Запрос и выбранная карточка передаются сервису и поставщику модели. Оплата идёт с твоего счёта OpenRouter.</p>
+  <p id="aiConnectionState" role="status"></p>
+  <button class="primary" type="button" data-ai="connect">Подключить OpenRouter</button>
+  <details class="ai-key-details"><summary>Ввести ключ OpenRouter вручную</summary>
+    <form id="aiKeyForm" autocomplete="off">
+      <label for="aiKey">Ключ доступа</label>
+      <input id="aiKey" type="password" autocomplete="off" spellcheck="false" required maxlength="300">
+      <button class="subbtn" type="submit">Подключить ключ</button>
+    </form>
+  </details>
+  <p class="foot">Ключ хранится в памяти вкладки до перезагрузки. Подписки на чаты оплачиваются отдельно от запросов к моделям.</p>
+  <div class="dlgactions"><button class="subbtn" type="button" data-ai="disconnect">Отключить</button><button class="subbtn" type="button" data-ai="close-connection">Закрыть</button></div>
 </dialog>
 <noscript><p class="empty">Для работы радара включи JavaScript.</p></noscript>
 </body>
